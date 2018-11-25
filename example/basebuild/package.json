@@ -1,0 +1,20 @@
+{
+  "name": "node-docker-express-example",
+  "version": "0.1.0",
+  "description": "an example express app to run inside a docker container",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "docker",
+    "node",
+    "express",
+    "ubuntu"
+  ],
+  "author": "Ishaan Malhi",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
