@@ -12,6 +12,8 @@ on:
 
   # Run tests for any PRs.
   pull_request:
+    branches:
+      - master
 
 env:
   # TODO: Change variable to your image's name.
@@ -46,13 +48,11 @@ jobs:
   # Push image to GitHub Package Registry.
   # See also https://docs.docker.com/docker-hub/builds/
   push-github:
-    branches:
-      - master
     # Ensure test job passes before pushing image.
     needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref == 'master'
 
     steps:
       - uses: actions/checkout@v2
@@ -88,11 +88,9 @@ jobs:
   push-dockerhub:
     # Ensure build job passes before pushing image.
     needs: test
-    branches:
-      - master
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref == 'master'
 
     steps:
       - uses: actions/checkout@v2
