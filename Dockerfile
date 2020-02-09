@@ -51,7 +51,7 @@ RUN gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 595E85A6B1B
  && apt-get autoremove -y
 
 # Set our NODE_ENV. Default to "production" since most libraries such as express use this to optimize for production environments
-ARG NODE_ENV={NODE_ENV:-production}
+ARG NODE_ENV=${NODE_ENV:-production}
 ENV NODE_ENV $NODE_ENV
 
 # Set entrypoint as Tini

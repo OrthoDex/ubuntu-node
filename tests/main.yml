@@ -1,0 +1,23 @@
+## Adapted from https://github.com/GoogleContainerTools/container-structure-test/blob/master/tests/debian_failure_test.yaml
+schemaVersion: '2.0.0'
+commandTests:
+- name: 'node version'
+  command: 'node'
+  args: ['--version']
+  expectedOutput: ['v10.13.0']
+
+metadataTest:
+  env:
+    - key: "NODE_ENV"
+      value: "production"
+  entrypoint: ["tini", "--"]
+  cmd: ["node"]
+
+fileExistenceTests:
+- name: 'User node directory'
+  path: '/home/node'
+  shouldExist: true
+  permissions: 'drwxr-xr-x'
+  uid: 1000
+  gid: 1000
+  isExecutableBy: 'group'
