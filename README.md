@@ -1,10 +1,18 @@
 # Production Ready Node.js Docker Base Images
 
+## Why:
+
+Other alternatives have the kitchen sink in the image. Not a great trade off between small images and reliability.
+
+This docker image installs what is necessary and leaves the rest upto the developer to install. It's a simple "batteries included" version of production Node.js images.
+
+This image has been built based on our experience in running over 1000s of containers executing Node.js apps.
+
 ## Features:
 
 - Docker layer caching for node_modules
 - [Tini](https://github.com/krallin/tini) as init process.
-- ONBUILD triggers based on convention for simplifyin application Dockerfile
+- ONBUILD triggers based on convention for simplifying application Dockerfile
 - non sudo `node` user
 
 ## Contributing:
