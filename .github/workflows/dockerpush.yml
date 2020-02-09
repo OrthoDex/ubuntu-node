@@ -37,7 +37,7 @@ jobs:
               && mv container-structure-test-linux-amd64 container-structure-test
 
             ./container-structure-test test --image $TEMP_IMAGE_NAME \
-              --config main.yaml
+              --config tests/main.yaml
           else
             echo "No tests!"
             exit 1
@@ -46,6 +46,8 @@ jobs:
   # Push image to GitHub Package Registry.
   # See also https://docs.docker.com/docker-hub/builds/
   push-github:
+    branches:
+      - master
     # Ensure test job passes before pushing image.
     needs: test
 
@@ -86,6 +88,8 @@ jobs:
   push-dockerhub:
     # Ensure build job passes before pushing image.
     needs: test
+    branches:
+      - master
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
