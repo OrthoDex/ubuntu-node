@@ -28,11 +28,19 @@ jobs:
 
       - name: Run tests
         run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
+          TEMP_IMAGE_NAME=$(echo $IMAGE_NAME-"${{ github.base_ref }}"-"${{ github.run_id }}":test)
+          docker build . --file Dockerfile --tag $TEMP_IMAGE_NAME
+          if [ -f tests/main.yml ]; then
+            ## install container test tools
+            curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 \
+              && chmod +x container-structure-test-linux-amd64 \
+              && mv container-structure-test-linux-amd64 container-structure-test
+
+            bash container-structure-test test --image $TEMP_IMAGE_NAME \
+              --config main.yaml
           else
-            docker build . --file Dockerfile
+            echo "No tests!"
+            exit 1
           fi
 
   # Push image to GitHub Package Registry.

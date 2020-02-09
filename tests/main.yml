@@ -1,0 +1,16 @@
+## Adapted from https://github.com/GoogleContainerTools/container-structure-test/blob/master/tests/debian_failure_test.yaml
+schemaVersion: '1.0.0'
+commandTests:
+- name: 'node version'
+  command: ['node', '--version']
+  expectedOutput: ['v10.13.0']
+- name: 'user'
+  command: ['cut -d: -f1 /etc/passwd | grep node']
+  expectedOutput: ['node']
+
+metadataTest:
+  env:
+    - key: "NODE_ENV"
+      value: "production"
+  entrypoint: ["tini", "--"]
+  cmd: ["/bin/bash"]
