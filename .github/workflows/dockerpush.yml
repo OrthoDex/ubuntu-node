@@ -28,7 +28,7 @@ jobs:
 
       - name: Run tests
         run: |
-          TEMP_IMAGE_NAME=$(echo $IMAGE_NAME-"${{ github.base_ref }}"-"${{ github.run_id }}":test)
+          TEMP_IMAGE_NAME=$(echo $IMAGE_NAME-"${{ github.ref }}"-"${{ github.run_id }}":test)
           docker build . --file Dockerfile --tag $TEMP_IMAGE_NAME
           if [ -f tests/main.yml ]; then
             ## install container test tools
@@ -36,7 +36,7 @@ jobs:
               && chmod +x container-structure-test-linux-amd64 \
               && mv container-structure-test-linux-amd64 container-structure-test
 
-            bash container-structure-test test --image $TEMP_IMAGE_NAME \
+            ./container-structure-test test --image $TEMP_IMAGE_NAME \
               --config main.yaml
           else
             echo "No tests!"
