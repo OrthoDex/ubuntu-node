@@ -39,7 +39,7 @@ jobs:
               && mv container-structure-test-linux-amd64 container-structure-test
 
             ./container-structure-test test --image $TEMP_IMAGE_NAME \
-              --config ./tests/main.yaml
+              --config ./tests/main.yml
           else
             echo "No tests!"
             exit 1
